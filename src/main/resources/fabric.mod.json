@@ -1,0 +1,6 @@
+{
+ "schemaVersion":1, "id":"chillzonertp", "version":"${version}", "name":"Chill Zone RTP",
+ "description":"Season 2 dimension-gated random teleport prototype", "environment":"server",
+ "entrypoints":{"main":["com.chillzone.rtp.ChillZoneRtp"]},
+ "depends":{"fabricloader":">=0.19.5","minecraft":"26.3","java":">=25","fabric-api":"*"}
+}
