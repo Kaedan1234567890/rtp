@@ -1,4 +1,4 @@
-name: Build RTP prototype
+name: Build Chill Zone RTP 0.1.2-alpha
 on: [push, workflow_dispatch]
 jobs:
   build:
@@ -12,9 +12,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.6.0'
-      - run: gradle build --stacktrace --console=plain
-      - uses: actions/upload-artifact@v4
+      - name: Compile and package RTP
+        run: gradle clean build --console=plain --warning-mode=all
+      - name: Show exactly which JAR was produced
+        if: always()
+        run: ls -lah build/libs/ || true
+      - name: Upload compiled RTP JAR
+        uses: actions/upload-artifact@v4
         with:
-          name: chill-zone-rtp-0.1.0-alpha
-          path: build/libs/chill-zone-rtp-0.1.0-alpha.jar
+          name: chill-zone-rtp-0.1.2-alpha
+          path: build/libs/chill-zone-rtp-0.1.2-alpha.jar
           if-no-files-found: error

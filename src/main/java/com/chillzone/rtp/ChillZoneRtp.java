@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-/** Prototype: original command is /rtp only; three choices inside GUI. */
+/** 0.1.2-alpha: /rtp menu; build and in-game behavior not yet verified. */
 public final class ChillZoneRtp implements ModInitializer {
     private static final long COOLDOWN_MS = 60_000L;
     private static final long OVERWORLD_RTP_LOCK_SECONDS = 30L * 60L;
@@ -146,8 +146,10 @@ public final class ChillZoneRtp implements ModInitializer {
         @Override public void clicked(int slot, int button, ContainerInput input, Player clicker) {
             if (slot==10 || slot==13 || slot==16) {
                 int dim=slot==10?0:slot==13?1:2;
-                // close menu first; action is server-side only.
-                player.closeContainer(); attempt(player,dim);
+                // Run only for the player whose GUI this is; never move decorative items.
+                if (clicker == player) {
+                    player.closeContainer(); attempt(player,dim);
+                }
             }
         }
         @Override public ItemStack quickMoveStack(Player p, int slot){return ItemStack.EMPTY;}
